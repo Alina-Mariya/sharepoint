@@ -1,0 +1,31 @@
+﻿/* макет CSS */
+#masthead {				text-align: center;
+}
+
+#top_nav {
+}
+
+#container {
+	position: relative;
+	width: 100%;
+}
+
+#left_col {
+	width: 200px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+#page_content {
+	margin-left: 200px;
+				font-family: "Times New Roman", Times, serif;
+				text-align: left;
+				letter-spacing: -1pt;
+				font-weight: 400;
+				margin-top: 0px;
+				margin-bottom: 0px;
+}
+
+#footer {
+}

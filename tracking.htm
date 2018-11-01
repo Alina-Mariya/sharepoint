@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Отслеживание посылок, почтовых отправлений</title> 
+  <link href="http://otsledit.com/f/i/favicon.ico" rel="icon" type="image/x-icon" />
+  <script src="jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="//otsledit.com///maps.googleapis.com/maps/api/js?sensor=false&amp;language=ru"></script>
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="jquery.tracking.js"></script>
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="http://otsledit.com/frame/assets/js/html5shiv.js"></script>
+  <![endif]-->
+    <style>body {background-color: #CCFFFF
+}</style>
+    <script>
+    jQuery.fn.reldata = function () {
+        // var data = $(this).reldata();
+        var rel = jQuery(this).attr('rel');
+        if (rel !== undefined) {
+            try {
+                var relData = eval('(' + rel + ')');
+                return relData;
+            } catch (err) {}
+        }
+        return false;
+    };
+    $(document).ready(function () {
+        $('.dropdown-menu li a').on('click', function (event) {
+            var rdata = $(this).reldata();
+            $('button[type="button"]').text(rdata.value);
+            $('input[name="service"]').val(rdata.key);
+            if (rdata.key == 'chinapost') {
+                $('#captcha').html( '<div class="well well-sm" style="width:212px;">' +
+                                    '<a href="javascript:void(0)" title="Кликните по картинке, чтобы обновить капчу" class="pull-left">' +
+                                    '<img id="captcha" style="float:left;" src="http://otsledit.com/captcha/chinapost.jpeg?1540361602" width="85" height="34" rel="chinapost" title="Кликните по картинке, чтобы обновить капчу" alt="Капча">' +
+                                    '</a>' +
+                                    '<input type="text" class="form-control" style="width:105px;" name="captcha" placeholder="Капча">' +
+                                    '<div class="clearfix"></div>' +
+                                    '</div>');
+            }
+        });
+    });
+  </script>
+</head>
+<body>
+  <div id="wrapper">
+    <div class="container air-mail-line"></div>
+    <div style="font-size:1.1em;"><a style="text-decoration:underline;" href="http://otsledit.com/ru/frame/manual" target="_parent" title="HTML-код сервиса отслеживания">Отслеживание для Интернет-магазинов</a></div>
+    <form id="tracking">
+      <div class="input-group">
+        <input type="text" class="form-control input-lg" name="number">
+        <div class="input-group-btn">
+          <button type="sumbit" class="btn btn-primary btn-lg" tabindex="-1">Отследить</button>
+          <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown" tabindex="-1">Новая почта <span class="caret"></span></button>
+          <ul class="dropdown-menu pull-right" role="menu">
+            <li><a href="javascript:void(0)" rel="{'key':'novaposhta', 'value':'Новая почта'}">Новая почта</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'ukrposhta', 'value':'Укрпочта'}">Укрпочта</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'usps', 'value':'USPS'}">USPS</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'meestexpress', 'value':'Мист Экспресс'}">Мист Экспресс</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'autolux', 'value':'Автолюкс'}">Автолюкс</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'chinapost', 'value':'Почта Китая'}">Почта Китая</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'russianpost', 'value':'Почта России'}">Почта России</a></li>
+            <li><a href="javascript:void(0)" rel="{'key':'russianpost', 'value':'EMS Почта России'}">EMS Почта России</a></li>
+          </ul>
+        </div>
+      </div>
+      <input type="hidden" name="lang" value="ru">
+      <input type="hidden" name="service" value="novaposhta">
+      <div id="captcha"></div>
+    </form>
+    <p class="text-right">
+    </p>
+    <div id="response" class="link-with-underline"></div>
+    <p class="text-center"></p>
+    <div class="well well-sm" id="map_canvas" style="width:100%;height:280px;display:none;"></div>
+  </div>
+</body>
+</html>
